@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d0d12">
+  <meta name="description" content="Minigolf spelregels in meerdere talen.">
+  <title>Minigolf | Speluitleg</title>
+  <style>
+    :root{--night:#0d0d12;--wall:#15151f;--red:#ed1c24;--uv:#8b5cff;--cyan:#2de2ff;--pink:#ff2fa0;--sheet:#0d0d12;--ink:#fff;--soft:#b4b4c8;--card:#1a1a26;--line:#2c2c40;--display:Impact,Haettenschweiler,"Arial Narrow Bold","Arial Black",sans-serif}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--sheet);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh}
+    .hero{position:relative;overflow:hidden;color:#fff;text-align:center;padding:46px 18px 150px;background:radial-gradient(ellipse 60% 70% at 15% 10%,rgba(139,92,255,.45),transparent 70%),radial-gradient(ellipse 55% 60% at 90% 30%,rgba(255,47,160,.32),transparent 70%),var(--night)}
+    .hero-in{position:relative;z-index:2;width:min(760px,100%);margin:auto}
+    h1{font-family:var(--display);font-weight:400;font-size:clamp(4rem,19vw,9rem);line-height:.9;letter-spacing:.015em;margin:0;text-transform:uppercase;transform:rotate(-3deg);text-shadow:0 0 28px rgba(237,28,36,.7),4px 4px 0 var(--red)}
+    .drip{display:block;width:min(300px,62%);height:22px;margin:6px auto 0;transform:rotate(-3deg)}
+    .intro{margin:18px 0 0;font-size:1.1rem;line-height:1.4;color:#d9d9e6;min-height:3em}
+    .sky{position:absolute;left:0;right:0;bottom:0;width:100%;height:190px;z-index:1}
+    .win{animation:on .5s steps(2,end) both}
+    @keyframes on{from{opacity:0}to{opacity:1}}
+    .tape{height:14px;background:repeating-linear-gradient(-45deg,var(--red) 0 16px,var(--night) 16px 32px)}
+    .wrap{width:min(760px,100%);margin:auto;padding:30px 18px 48px}
+    .languages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    button{font:inherit;cursor:pointer}
+    .lang{display:flex;align-items:center;gap:13px;text-align:left;background:var(--card);border:2px solid var(--line);color:var(--ink);padding:14px 16px;border-radius:22px;font-weight:800;font-size:1.05rem;transition:background .15s,color .15s,border-color .15s}
+    .lang:first-child{grid-column:1/-1;padding:20px 18px}
+    .lang:hover,.lang:focus-visible{background:#26171f;border-color:var(--red);box-shadow:0 0 18px rgba(237,28,36,.35);outline:none}
+    .lang:focus-visible{outline:3px solid var(--uv);outline-offset:3px}
+    .flag{font-size:1.9rem;line-height:1}
+    .lang small{display:block;color:var(--soft);font-weight:500;font-size:.78rem;margin-top:2px}
+    .lang:hover small,.lang:focus-visible small{color:#bdbdd0}
+    .rules{display:none}
+    .rules.active{display:block}
+    .rules-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .rules-head h2{font-family:var(--display);font-weight:400;font-size:clamp(2rem,8vw,2.8rem);text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:1}
+    .back{border:2px solid var(--line);background:transparent;color:#fff;border-radius:999px;padding:11px 16px;font-size:.9rem;font-weight:700;white-space:nowrap}
+    .back:hover{background:var(--red);border-color:var(--red)}
+    .back:focus-visible{outline:3px solid var(--uv);outline-offset:3px}
+    .rule{display:grid;grid-template-columns:54px 1fr;gap:15px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin:12px 0}
+    .num{width:50px;height:50px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;box-shadow:0 0 0 3px var(--card),0 0 0 5px var(--uv)}
+    .rule h3{font-size:1.08rem;margin:2px 0 5px}
+    .rule p{margin:0;color:var(--soft);line-height:1.55}
+    .rule.warn{background:var(--red);border-color:var(--red);color:#fff;position:relative;overflow:hidden;padding-top:26px}
+    .rule.warn::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(-45deg,#fff 0 10px,var(--night) 10px 20px)}
+    .rule.warn p{color:#fff}
+    .ui{font-style:normal;font-weight:800;color:var(--cyan);background:#262638;border:1px solid #44445e;border-radius:8px;padding:1px 7px;white-space:nowrap}
+    .rule.warn .ui{color:#fff;background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.55)}
+    .rule.warn .num{background:#fff;color:var(--red);box-shadow:0 0 0 3px var(--red),0 0 0 6px #fff}
+    .notice{background:var(--night);color:#fff;border-radius:24px;padding:22px 20px;margin-top:20px;line-height:1.5;box-shadow:0 0 0 2px var(--uv),0 0 26px rgba(139,92,255,.5)}
+    .notice strong{display:block;font-family:var(--display);font-weight:400;font-size:1.7rem;letter-spacing:.02em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+    @media(min-width:600px){.languages{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{padding-top:64px}}
+    @media(prefers-reduced-motion:reduce){.win{animation:none}.lang{transition:none}}
+  </style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-in">
+    <h1>Minigolf</h1>
+    <svg class="drip" viewBox="0 0 300 22" aria-hidden="true"><path d="M2 5 Q150 -1 298 6 L298 9 Q150 4 2 9Z M40 8h5v12a2.5 2.5 0 0 1-5 0Z M120 7h4v8a2 2 0 0 1-4 0Z M215 8h5v10a2.5 2.5 0 0 1-5 0Z" fill="#ed1c24"/></svg>
+    <p class="intro" id="intro">Kies je taal<br>Choose your language</p>
+  </div>
+  <svg class="sky" id="sky" viewBox="0 0 1200 190" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+</header>
+<div class="tape" aria-hidden="true"></div>
+<main class="wrap">
+  <section id="chooser" aria-label="Taal / Language">
+    <div class="languages" id="languages"></div>
+  </section>
+
+  <section class="rules" id="rules" aria-live="polite">
+    <div class="rules-head">
+      <h2 id="rules-title">Spelregels</h2>
+      <button class="back" id="back" type="button">← Taal kiezen</button>
+    </div>
+    <div id="rule-list"></div>
+    <div class="notice" id="notice"></div>
+  </section>
+</main>
+<script>
+const content = {
+  nl:{name:"Nederlands",native:"Nederlands",flag:"🇳🇱",subtitle:"Speluitleg & praktische informatie",title:"Spelregels",back:"← Taal kiezen",notice:"<strong>Veel plezier!</strong> Heeft u hulp nodig? Vraag het gerust aan een medewerker.",rules:[
+    ["Score pincode invoeren","Voer de <b class='ui'>Score Pincode</b> in op de tablet die bij elke hole staat."],
+    ["Slagen invullen","Vul bij elke speler het aantal slagen in. Heeft een speler meer dan 8 slagen nodig? Voer dan ‘X’ in."],
+    ["Controleer vóór opslaan","LET OP! Druk pas op <b class='ui'>Hole opslaan</b> als ALLE scores goed zijn ingevuld en gecontroleerd."],
+    ["Een andere hole starten","Is een hole bezet? Dan kunt u ook bij een andere hole beginnen."],
+    ["Hole 18 als laatste","Speel hole 18 als laatste. Bij deze hole wordt uw bal ingenomen."],
+    ["Hapje en drankje bestellen","Bij de tablets van het ‘Horeca bestelpunt’ kunt u een hapje en drankje bestellen. Wij brengen uw bestelling naar dat punt."]
+  ]},
+  en:{name:"English",native:"English",flag:"🇬🇧",subtitle:"How to play & useful information",title:"How to play",back:"← Choose language",notice:"<strong>Have fun!</strong> If you need help, please ask a member of our team.",rules:[
+    ["Enter the score PIN","Enter the <b class='ui'>Score Pincode</b> (score PIN) on the tablet located at each hole."],
+    ["Enter the strokes","Enter the number of strokes for each player. If a player takes more than 8 strokes, enter “X”."],
+    ["Check before saving","IMPORTANT! Only press <b class='ui'>Hole opslaan</b> (Save hole) once ALL scores have been entered correctly and checked."],
+    ["Start at another hole","If a hole is occupied, you may start at a different hole."],
+    ["Play hole 18 last","Play hole 18 last. Your ball will be collected at this hole."],
+    ["Order food and drinks","You can order food and drinks using the tablets at the “Food & Drink Order Point”. We will bring your order to that point."]
+  ]},
+  de:{name:"Deutsch",native:"Deutsch",flag:"🇩🇪",subtitle:"Spielanleitung & praktische Informationen",title:"Spielregeln",back:"← Sprache wählen",notice:"<strong>Viel Spaß!</strong> Wenn Sie Hilfe benötigen, wenden Sie sich bitte an unser Team.",rules:[
+    ["Score-PIN eingeben","Geben Sie die <b class='ui'>Score Pincode</b> (Score-PIN) auf dem Tablet ein, das sich an jeder Bahn befindet."],
+    ["Schläge eintragen","Tragen Sie für jeden Spieler die Anzahl der Schläge ein. Bei mehr als 8 Schlägen geben Sie bitte „X“ ein."],
+    ["Vor dem Speichern prüfen","ACHTUNG! Drücken Sie erst auf <b class='ui'>Hole opslaan</b> (Bahn speichern), wenn ALLE Ergebnisse richtig eingetragen und überprüft wurden."],
+    ["An einer anderen Bahn starten","Wenn eine Bahn besetzt ist, können Sie auch an einer anderen Bahn beginnen."],
+    ["Bahn 18 zuletzt spielen","Spielen Sie Bahn 18 als letzte Bahn. Dort wird Ihr Ball eingesammelt."],
+    ["Essen und Getränke bestellen","An den Tablets am „Bestellpunkt Gastronomie“ können Sie Snacks und Getränke bestellen. Wir bringen Ihre Bestellung zu diesem Punkt."]
+  ]},
+  fr:{name:"Français",native:"Français",flag:"🇫🇷",subtitle:"Règles du jeu et informations pratiques",title:"Règles du jeu",back:"← Choisir la langue",notice:"<strong>Amusez-vous bien !</strong> Si vous avez besoin d’aide, adressez-vous à un membre de notre équipe.",rules:[
+    ["Saisir le code PIN des scores","Saisissez le <b class='ui'>Score Pincode</b> (code PIN des scores) sur la tablette située à chaque piste."],
+    ["Saisir les coups","Indiquez le nombre de coups pour chaque joueur. Si un joueur effectue plus de 8 coups, saisissez « X »."],
+    ["Vérifier avant d’enregistrer","ATTENTION ! Appuyez sur <b class='ui'>Hole opslaan</b> (Enregistrer la piste) uniquement lorsque TOUS les scores sont correctement saisis et vérifiés."],
+    ["Commencer sur une autre piste","Si une piste est occupée, vous pouvez commencer sur une autre piste."],
+    ["Jouer la piste 18 en dernier","Jouez la piste 18 en dernier. Votre balle sera récupérée à cet endroit."],
+    ["Commander à manger et à boire","Vous pouvez commander des boissons et des snacks sur les tablettes du « Point de commande restauration ». Nous apporterons votre commande à ce point."]
+  ]},
+  es:{name:"Español",native:"Español",flag:"🇪🇸",subtitle:"Instrucciones e información práctica",title:"Reglas del juego",back:"← Elegir idioma",notice:"<strong>¡Que se diviertan!</strong> Si necesitan ayuda, no duden en preguntar a nuestro personal.",rules:[
+    ["Introducir el PIN de puntuación","Introduzca el <b class='ui'>Score Pincode</b> (PIN de puntuación) en la tablet situada en cada hoyo."],
+    ["Introducir los golpes","Introduzca el número de golpes de cada jugador. Si un jugador necesita más de 8 golpes, introduzca «X»."],
+    ["Comprobar antes de guardar","¡ATENCIÓN! Pulse <b class='ui'>Hole opslaan</b> (Guardar hoyo) solo cuando TODAS las puntuaciones estén correctamente introducidas y comprobadas."],
+    ["Empezar en otro hoyo","Si un hoyo está ocupado, también puede empezar en otro hoyo."],
+    ["Jugar el hoyo 18 al final","Juegue el hoyo 18 al final. Allí recogeremos su pelota."],
+    ["Pedir comida y bebida","Puede pedir algo de comer y beber en las tablets del «Punto de pedidos de hostelería». Llevaremos su pedido a ese punto."]
+  ]},
+  it:{name:"Italiano",native:"Italiano",flag:"🇮🇹",subtitle:"Istruzioni di gioco e informazioni utili",title:"Regole del gioco",back:"← Scegli la lingua",notice:"<strong>Buon divertimento!</strong> Se hai bisogno di aiuto, chiedi pure a un membro del nostro staff.",rules:[
+    ["Inserire il PIN del punteggio","Inserisci il <b class='ui'>Score Pincode</b> (PIN del punteggio) sul tablet presente presso ogni buca."],
+    ["Inserire i colpi","Inserisci il numero di colpi per ogni giocatore. Se un giocatore effettua più di 8 colpi, inserisci «X»."],
+    ["Controllare prima di salvare","ATTENZIONE! Premi <b class='ui'>Hole opslaan</b> (Salva buca) solo quando TUTTI i punteggi sono stati inseriti e controllati correttamente."],
+    ["Iniziare da un'altra buca","Se una buca è occupata, puoi iniziare anche da un'altra buca."],
+    ["Giocare la buca 18 per ultima","Gioca la buca 18 per ultima. Qui la pallina verrà ritirata."],
+    ["Ordinare cibo e bevande","Puoi ordinare snack e bevande dai tablet del «Punto ordini bar». Porteremo il tuo ordine a quel punto."]
+  ]},
+  pl:{name:"Polski",native:"Polski",flag:"🇵🇱",subtitle:"Zasady gry i praktyczne informacje",title:"Zasady gry",back:"← Wybierz język",notice:"<strong>Miłej zabawy!</strong> Jeśli potrzebujesz pomocy, poproś o nią naszego pracownika.",rules:[
+    ["Wprowadź PIN wyników","Wprowadź <b class='ui'>Score Pincode</b> (PIN wyników) na tablecie znajdującym się przy każdym dołku."],
+    ["Wpisz liczbę uderzeń","Wpisz liczbę uderzeń każdego gracza. Jeśli gracz wykona więcej niż 8 uderzeń, wpisz „X”."],
+    ["Sprawdź przed zapisaniem","UWAGA! Naciśnij <b class='ui'>Hole opslaan</b> (Zapisz dołek) dopiero wtedy, gdy WSZYSTKIE wyniki są prawidłowo wpisane i sprawdzone."],
+    ["Rozpocznij na innym dołku","Jeśli dołek jest zajęty, możesz rozpocząć grę na innym dołku."],
+    ["Dołek 18 zagraj na końcu","Dołek 18 zagraj jako ostatni. W tym miejscu piłka zostanie odebrana."],
+    ["Zamów jedzenie i napoje","Na tabletach w „Punkcie zamawiania gastronomii” możesz zamówić przekąski i napoje. Przyniesiemy zamówienie do tego punktu."]
+  ]}
+};
+const $=id=>document.getElementById(id);
+const languages=$('languages'),chooser=$('chooser'),rules=$('rules'),ruleList=$('rule-list'),back=$('back'),intro=$('intro');
+const introDefault=intro.innerHTML;
+
+// Skyline van de verlaten stad, met ramen die aangaan
+(function(){
+  let s=7;const r=()=>(s=s*16807%2147483647)/2147483647;
+  const cols=['#2de2ff','#ff2fa0','#ffb347','#8b5cff'];
+  let x=-10,h='';
+  while(x<1200){
+    const w=44+(r()*60|0),ht=50+(r()*120|0),y=190-ht;
+    h+=`<rect x="${x}" y="${y}" width="${w-3}" height="${ht}" fill="#15151f"/>`;
+    for(let wy=y+10;wy<182;wy+=16)for(let wx=x+7;wx<x+w-12;wx+=14)
+      if(r()<.3)h+=`<rect class="win" style="animation-delay:${(r()*2.6).toFixed(2)}s" x="${wx}" y="${wy}" width="6" height="8" fill="${cols[r()*4|0]}"/>`;
+    x+=w;
+  }
+  $('sky').innerHTML=h;
+})();
+
+function showLanguage(code){
+  const d=content[code];document.documentElement.lang=code;
+  $('rules-title').textContent=d.title;
+  back.textContent=d.back;
+  intro.textContent=d.subtitle;
+  $('notice').innerHTML=d.notice;
+  ruleList.replaceChildren();
+  d.rules.forEach((r,i)=>{
+    const article=document.createElement('article');article.className='rule'+(i===2?' warn':'');
+    const num=document.createElement('div');num.className='num';num.textContent=String(i+1);
+    const body=document.createElement('div');
+    const h=document.createElement('h3');h.textContent=r[0];
+    const p=document.createElement('p');p.innerHTML=r[1];
+    body.append(h,p);article.append(num,body);ruleList.append(article);
+  });
+  chooser.hidden=true;rules.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});
+}
+Object.entries(content).forEach(([code,d])=>{
+  const b=document.createElement('button');b.className='lang';b.type='button';
+  b.innerHTML=`<span class="flag" aria-hidden="true">${d.flag}</span><span>${d.native}<small>${d.name}</small></span>`;
+  b.addEventListener('click',()=>showLanguage(code));languages.append(b);
+});
+back.addEventListener('click',()=>{rules.classList.remove('active');chooser.hidden=false;intro.innerHTML=introDefault;document.documentElement.lang="nl";window.scrollTo({top:0,behavior:'smooth'});});
+</script>
+</body>
+</html>
