@@ -14,7 +14,8 @@
     .hero-in{position:relative;z-index:2;width:min(760px,100%);margin:auto}
     h1{font-family:var(--display);font-weight:400;font-size:clamp(4rem,19vw,9rem);line-height:.9;letter-spacing:.015em;margin:0;text-transform:uppercase;transform:rotate(-3deg);text-shadow:0 0 28px rgba(237,28,36,.7),4px 4px 0 var(--red)}
     .drip{display:block;width:min(300px,62%);height:22px;margin:6px auto 0;transform:rotate(-3deg)}
-    .intro{margin:18px 0 0;font-size:1.1rem;line-height:1.4;color:#d9d9e6;min-height:3em}
+    .intro{margin:18px 0 0;font-size:1.1rem;line-height:1.4;color:#d9d9e6}
+    .intro:empty{display:none}
     .sky{position:absolute;left:0;right:0;bottom:0;width:100%;height:190px;z-index:1}
     .win{animation:on .5s steps(2,end) both}
     @keyframes on{from{opacity:0}to{opacity:1}}
@@ -57,6 +58,7 @@
   <div class="hero-in">
     <h1>Minigolf</h1>
     <svg class="drip" viewBox="0 0 300 22" aria-hidden="true"><path d="M2 5 Q150 -1 298 6 L298 9 Q150 4 2 9Z M40 8h5v12a2.5 2.5 0 0 1-5 0Z M120 7h4v8a2 2 0 0 1-4 0Z M215 8h5v10a2.5 2.5 0 0 1-5 0Z" fill="#ed1c24"/></svg>
+    <p class="intro" id="intro"></p>
   </div>
   <svg class="sky" id="sky" viewBox="0 0 1200 190" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
 </header>
